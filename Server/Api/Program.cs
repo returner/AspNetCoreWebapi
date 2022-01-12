@@ -1,3 +1,7 @@
+using Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ShopContext>(opts => opts.UseSqlite($"Data Source={AppContext.BaseDirectory}{System.IO.Path.DirectorySeparatorChar}shop.db"));
 
 var app = builder.Build();
 

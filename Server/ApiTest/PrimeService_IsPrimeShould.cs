@@ -46,5 +46,24 @@ namespace ApiTest
             Assert.False(result, $"{value} should not be prime");
         }
 
+        [Theory]
+        [InlineData(1,2)]
+        [InlineData(5,6)]
+        public void Compare_False(int number1, int number2)
+        {
+            var result = _primeService.Compare(number1, number2);
+
+            Assert.False(result, $"{number1} is smaller than {number2}");
+        }
+
+        [Theory]
+        [InlineData(2,1)]
+        [InlineData(9999, 8)]
+        public void Compare_True(int number1, int number2)
+        {
+            var result = _primeService.Compare(number1, number2);
+
+            Assert.True(result, $"{number1} is bigger than {number2}");
+        }
     }
 }
