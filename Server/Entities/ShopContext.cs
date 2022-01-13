@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class ShopContext : DbContext
+    public class ShopContext : DbContext, IShopContext
     {
-        public DbSet<Cart> Carts { get; set; } = null!;
-        public DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<Cart> Carts { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
 
         public ShopContext()
         {
@@ -21,5 +21,22 @@ namespace Entities
         {
         }
 
+    }
+
+    public class ShopMockContext : DbContext, IShopContext
+    {
+        public DbSet<Cart> Carts { get; set; } = null!;
+        public DbSet<Product> Products { get; set; } = null!;
+
+        public ShopMockContext(DbContextOptions<ShopContext> options)
+            : base(options)
+        {
+        }
+    }
+
+    public interface IShopContext
+    {
+        DbSet<Cart> Carts { get; set;}
+        DbSet<Product> Products { get; set;}
     }
 }
